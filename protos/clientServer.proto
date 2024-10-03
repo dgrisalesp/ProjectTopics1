@@ -1,0 +1,40 @@
+syntax="proto3";
+package clientServer;
+
+service ClientServer{
+    rpc register(registerRequest) returns (registerResponse);
+    rpc unregister(unregisterRequest) returns (unregisterResponse);
+    rpc login(loginRequest) returns (loginResponse);
+    rpc logout(logoutRequest) returns (logoutResponse);
+}
+
+message registerRequest{
+    string user=1;
+    string password=2;
+}
+
+message registerResponse{
+    string response=1;
+}
+message unregisterRequest{
+    string user=1;
+    string password=2;
+}
+message unregisterResponse{
+    string response=1;
+}
+message loginRequest{
+    string user=1;
+    string password=2;
+}
+message loginResponse{
+    string reponse=1;
+}
+message logoutRequest{
+    string user=1;
+    string password=2;
+    
+}
+message logoutResponse{
+    string response=1;
+}
