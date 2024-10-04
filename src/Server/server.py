@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 
-mySQLDirection="98.82.35.86"
+mySQLDirection="3.85.40.137"
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
         user=request.user
