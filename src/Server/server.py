@@ -25,7 +25,6 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             logging.info(f"User registered {user}")
             return registerResponse
         except Exception as e:
-            logging.info(e)
             return clientServer_pb2.registerResponse(response="User not registered")
 
 #Define server
