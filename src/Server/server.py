@@ -17,15 +17,15 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
         user=request.user
         password=request.password
+        logging.info(user, password)
         try:
             cursor.execute("insert into users values (%s, %s)",(user,password))
             registerResponse=clientServer_pb2.registerResponse(response="User registered")
             mydb.commit()
             logging.info(f"User registered {user}")
             return registerResponse
-        
-        except:
-            return clientServer_pb2.registerResponse(response="User already exists")
+        except Exception as e:
+            return clientServer_pb2.registerResponse(response=e)
 
 #Define server
 def serve():
