@@ -6,6 +6,7 @@ service ClientServer{
     rpc unregister(unregisterRequest) returns (unregisterResponse);
     rpc login(loginRequest) returns (loginResponse);
     rpc logout(logoutRequest) returns (logoutResponse);
+    rpc stayingAlive(stayRequest) returns (stayResponse); //user & password required
 }
 
 message registerRequest{
@@ -14,21 +15,25 @@ message registerRequest{
 }
 
 message registerResponse{
-    string response=1;
+    int32 value=1;
+    string response=2;
+
 }
 message unregisterRequest{
     string user=1;
     string password=2;
 }
 message unregisterResponse{
-    string response=1;
+    int32 value=1;
+    string response=2;
 }
 message loginRequest{
     string user=1;
     string password=2;
 }
 message loginResponse{
-    string reponse=1;
+    int32 value=1;
+    string response=2;
 }
 message logoutRequest{
     string user=1;
@@ -36,5 +41,15 @@ message logoutRequest{
     
 }
 message logoutResponse{
-    string response=1;
+    int32 value=1;
+    string response=2;
+}
+
+message stayRequest{
+    string id=1;
+    string username=2;
+}
+message stayResponse{
+    int32 value=1;
+    string response=2;
 }
