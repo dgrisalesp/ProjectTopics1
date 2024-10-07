@@ -45,6 +45,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         print(user, password)
         try:
             ##Intentar hacer un select en la base de datos con el user y el password
+            
             cursor.execute("select * from users where user = %s",(user,))
             results=cursor.fetchall()
             if results:
@@ -101,9 +102,12 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         filename=request.filename
         size=request.size
         try:
-            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 1")
+            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 2")
             ips=cursor.fetchall()
-            response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
+            try:
+                response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
+            except:
+                response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][1])
             return response
         except:
             return clientServer_pb2.putFileResponse(value=0, ip1="")
