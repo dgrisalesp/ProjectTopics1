@@ -45,11 +45,14 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
                 filename=f'{directory}/{filename}'
                 print("Good")
                 response=receivedFile(filename, request.node_id, 1)
-                sendReplicaRequest=clientDataNode_pb2.sendReplica(filename=filename, node_id=response.id, data=request.data)
+                sendReplicaRequest=clientDataNode_pb2.sendReplicaRequest(filename=filename, node_id=response.id, data=request.data)
                 with grpc.insecure_channel(f'{response.node_id}:50052') as channel:
                     stub=clientDataNode_pb2_grpc.ClientDataNodeStub(channel)
                     sendReplicaResponse=stub.sendReplica(sendReplicaRequest)
-            return clientDataNode_pb2.uploadResponse(value=1, response="File uploaded succesfully")
+                    if sendReplicaResponse.value==1:
+                        return clientDataNode_pb2.uploadResponse(value=1, response="File uploaded succesfully")
+                    else:
+                        return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded")
         except:
             print('Falló')
             return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded") 
