@@ -134,9 +134,10 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
     def getFile(self, request, context):
         filename=request.filename
         try:
-            cursor.execute("select node_ip from files where filename like '%s'",(f'%{filename}',))
+            cursor.execute("select node_ip, replica from files where filename like '%s'",(f'%{filename}',))
             ips=cursor.fetchall()
-            response=clientServer_pb2.getFileResponse(value=1,ips=list(ips))
+            response=clientServer_pb2.getFileResponse(value=1,ips=list(ips[0]))
+            print(response)
             return response
         except:
             return clientServer_pb2.getFileResponse(value=0,ips=[])
