@@ -54,8 +54,8 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
                         return clientDataNode_pb2.uploadResponse(value=1, response="File uploaded succesfully")
                     else:
                         return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded")
-        except:
-            print('Falló')
+        except Exception as e:
+            print(e)
             return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded") 
         
     def getFile(self, request, context):

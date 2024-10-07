@@ -44,6 +44,11 @@ class ClientDataNodeStub(object):
                 request_serializer=clientDataNode__pb2.getRequest.SerializeToString,
                 response_deserializer=clientDataNode__pb2.getResponse.FromString,
                 _registered_method=True)
+        self.sendReplica = channel.unary_unary(
+                '/clientDataNode.ClientDataNode/sendReplica',
+                request_serializer=clientDataNode__pb2.sendReplicaRequest.SerializeToString,
+                response_deserializer=clientDataNode__pb2.sendReplicaResponse.FromString,
+                _registered_method=True)
 
 
 class ClientDataNodeServicer(object):
@@ -61,6 +66,12 @@ class ClientDataNodeServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def sendReplica(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ClientDataNodeServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +84,11 @@ def add_ClientDataNodeServicer_to_server(servicer, server):
                     servicer.getFile,
                     request_deserializer=clientDataNode__pb2.getRequest.FromString,
                     response_serializer=clientDataNode__pb2.getResponse.SerializeToString,
+            ),
+            'sendReplica': grpc.unary_unary_rpc_method_handler(
+                    servicer.sendReplica,
+                    request_deserializer=clientDataNode__pb2.sendReplicaRequest.FromString,
+                    response_serializer=clientDataNode__pb2.sendReplicaResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,6 +145,33 @@ class ClientDataNode(object):
             '/clientDataNode.ClientDataNode/getFile',
             clientDataNode__pb2.getRequest.SerializeToString,
             clientDataNode__pb2.getResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def sendReplica(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/clientDataNode.ClientDataNode/sendReplica',
+            clientDataNode__pb2.sendReplicaRequest.SerializeToString,
+            clientDataNode__pb2.sendReplicaResponse.FromString,
             options,
             channel_credentials,
             insecure,
