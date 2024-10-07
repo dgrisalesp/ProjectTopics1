@@ -10,6 +10,7 @@ service ClientServer{
     rpc putFile(putFileRequest) returns (putFileResponse);
     rpc receivedFile(receivedFileRequest) returns (receivedFileResponse);
     rpc getFile(getFileRequest) returns (getFileResponse);
+    
 }
 
 message registerRequest{
@@ -90,4 +91,3 @@ message getFileResponse{
     repeated string ips=2;
     string response=3;
 }
-

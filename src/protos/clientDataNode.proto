@@ -6,7 +6,7 @@ service ClientDataNode{
     rpc uploadFile(uploadRequest) returns (uploadResponse);
     rpc getFile(getRequest) returns (getResponse);
     rpc sendReplica(sendReplicaRequest) returns (sendReplicaResponse);
-    rpc alive(aliveRequest) returns (aliveResponse);
+    
 }
 
 
@@ -42,10 +42,4 @@ message sendReplicaRequest{
 message sendReplicaResponse{
     int32 value=1;
     string response=2;
-}
-message aliveRequest{
-    int32 value=1;
-}
-message aliveResponse{
-    int32 response=2;
 }

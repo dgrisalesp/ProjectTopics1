@@ -106,7 +106,10 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             ips=cursor.fetchall()
             try:
                 response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
+                
             except:
+                cursor.execute("update nodes set status=FALSE where ip_address=%s",(ips[0][0],))
+                mydb.commit()
                 response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][1])
             return response
         except:
