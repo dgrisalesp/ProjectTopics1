@@ -44,7 +44,7 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
                 f.write(request.data)
                 filename=f'{directory}/{filename}'
                 print("Good")
-                response=receivedFile(filename, request.node_id, type=1)
+                response=receivedFile(filename, request.node_id, 1)
                 sendReplicaRequest=clientDataNode_pb2.sendReplica(filename=filename, node_id=response.id, data=request.data)
                 with grpc.insecure_channel(f'{response.node_id}:50052') as channel:
                     stub=clientDataNode_pb2_grpc.ClientDataNodeStub(channel)
