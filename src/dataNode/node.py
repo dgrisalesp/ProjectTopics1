@@ -17,11 +17,11 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 
 serverDirection="54.198.253.100"
-def receivedFile(filename, node_id):
+def receivedFile(filename, node_id, type):
     try:
         with grpc.insecure_channel(f'{serverDirection}:50051') as channel:
             stub = clientServer_pb2_grpc.ClientServerStub(channel)
-            receivedFileRequest=clientServer_pb2.receivedFileRequest(filename=filename, node_id=node_id, type=1)
+            receivedFileRequest=clientServer_pb2.receivedFileRequest(filename=filename, node_id=node_id, type=type)
             receivedFileResponse=stub.receivedFile(receivedFileRequest)
             return receivedFileResponse
     except:
@@ -29,6 +29,7 @@ def receivedFile(filename, node_id):
 
 
 class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
+    
     def uploadFile(self, request, context):
         print("llegó")
         username=request.username
@@ -41,7 +42,12 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
             with open(f'{directory}/{filename}','wb' ) as f:
                 print('Abrió')
                 f.write(request.data)
-                receivedFile(f'{directory}/{filename}', request.node_id)
+                filename=f'{directory}/{filename}'
+                response=receivedFile(filename, request.node_id)
+                sendReplicaRequest=clientDataNode_pb2.sendReplica(filename=filename, node_id=response.id, data=request.data)
+                with grpc.insecure_channel(f'{response.node_id}:50052') as channel:
+                    stub=clientDataNode_pb2_grpc.ClientDataNodeStub(channel)
+                    sendReplicaResponse=stub.sendReplica(sendReplicaRequest)
             return clientDataNode_pb2.uploadResponse(value=1, response="File uploaded succesfully")
         except:
             print('Falló')
@@ -57,6 +63,17 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
         except:
             return clientDataNode_pb2.getResponse(value=0, response="File not downloaded")
     
+    def sendReplica(self, request, context):
+        filename=request.filename
+        node_id=request.node_id
+        try:
+            with open(filename, 'wb') as f:
+                f.write(request.data)
+                receivedFile(filename, node_id, 2)
+            return clientDataNode_pb2.sendReplica(value=1, response="File uploaded succesfully")
+        except:
+            return clientDataNode_pb2.sendReplica(value=0, response="Something went wrong")
+            
             
 def serve():
     server=grpc.server(futures.ThreadPoolExecutor(max_workers=10))

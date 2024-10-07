@@ -5,7 +5,11 @@ package clientDataNode;
 service ClientDataNode{
     rpc uploadFile(uploadRequest) returns (uploadResponse);
     rpc getFile(getRequest) returns (getResponse);
+    rpc sendReplica(sendReplicaRequest) returns (sendReplicaResponse);
 }
+
+
+
 
 message uploadRequest{
     string username=1;
@@ -27,4 +31,15 @@ message getResponse{
     int32 value=1;
     bytes data=2;
     string response=3;
+}
+
+message sendReplicaRequest{
+    string filename=1;
+    bytes data=2;
+    string node_id=3;
+}
+
+message sendReplicaResponse{
+    int32 value=1;
+    string response=2;
 }

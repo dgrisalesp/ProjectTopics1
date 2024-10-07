@@ -121,7 +121,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
                 ips=cursor.fetchall()
                 return clientServer_pb2.receivedFileResponse(value=1,id=ips[0][0])
             else:
-                cursor.execute("update files set replica=%s where filename=%s",(node_id,filename))
+                cursor.execute("update files set replica=%s where filename=%s",(node_id,filename, ))
                 mydb.commit()
                 return clientServer_pb2.receivedFileResponse(value=1,id="")
         except:
