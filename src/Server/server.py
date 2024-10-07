@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="98.83.142.38"
-mongoDirection="34.238.116.120"
+mySQLDirection="34.235.171.3"
+mongoDirection="3.86.211.136"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
@@ -107,6 +107,25 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             return response
         except:
             return clientServer_pb2.putFileResponse(value=0, ip1="")
+    def receivedFile(self, request, context):
+        filename=request.filename
+        node_id=request.node_id
+        type=request.type
+        try:
+            cursor.execute("update nodes set last_used=%s where ip_address=%s",(datetime.now(),node_id))
+            mydb.commit()
+            if type==1:
+                cursor.execute("insert into files (node_ip, filename, type) values (%s, %s, %s)",(node_id,filename,type))
+                mydb.commit()
+                cursor.execute("select ip_address  from nodes  where status=TRUE and ip_address!=%s order by last_used asc limit 1", (node_id, ))
+                ips=cursor.fetchall()
+                return clientServer_pb2.receivedFileResponse(value=1,id=ips[0][0])
+            else:
+                cursor.execute("update files set replica=%s where filename=%s",(node_id,filename))
+                mydb.commit()
+                return clientServer_pb2.receivedFileResponse(value=1,id="")
+        except:
+            return clientServer_pb2.receivedFileResponse(value=0,id="")
 
 #Define server
 def serve():

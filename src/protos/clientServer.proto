@@ -8,6 +8,7 @@ service ClientServer{
     rpc logout(logoutRequest) returns (logoutResponse);
     rpc stayingAlive(stayRequest) returns (stayResponse); //user & password required
     rpc putFile(putFileRequest) returns (putFileResponse);
+    rpc receivedFile(receivedFileRequest) returns (receivedFileResponse);
 }
 
 message registerRequest{
@@ -64,4 +65,17 @@ message putFileRequest{
 message putFileResponse{
     int32 value=1;
     string ip1=2;
+}
+
+message receivedFileRequest{
+    string node_id=1;
+    string filename=2;
+    int32 type=3;
+
+}
+message receivedFileResponse{
+    int32 value=1;
+    string id=2;
+
+
 }

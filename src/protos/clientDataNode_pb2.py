@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63lientDataNode.proto\x12\x0e\x63lientDataNode\"A\n\ruploadRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\"1\n\x0euploadResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"0\n\ngetRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\"<\n\x0bgetResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\x10\n\x08response\x18\x03 \x01(\t2\xa1\x01\n\x0e\x43lientDataNode\x12K\n\nuploadFile\x12\x1d.clientDataNode.uploadRequest\x1a\x1e.clientDataNode.uploadResponse\x12\x42\n\x07getFile\x12\x1a.clientDataNode.getRequest\x1a\x1b.clientDataNode.getResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63lientDataNode.proto\x12\x0e\x63lientDataNode\"R\n\ruploadRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x0f\n\x07node_id\x18\x04 \x01(\t\"1\n\x0euploadResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"0\n\ngetRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\"<\n\x0bgetResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\x10\n\x08response\x18\x03 \x01(\t2\xa1\x01\n\x0e\x43lientDataNode\x12K\n\nuploadFile\x12\x1d.clientDataNode.uploadRequest\x1a\x1e.clientDataNode.uploadResponse\x12\x42\n\x07getFile\x12\x1a.clientDataNode.getRequest\x1a\x1b.clientDataNode.getResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,13 +32,13 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'clientDataNode_pb2', _globa
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_UPLOADREQUEST']._serialized_start=40
-  _globals['_UPLOADREQUEST']._serialized_end=105
-  _globals['_UPLOADRESPONSE']._serialized_start=107
-  _globals['_UPLOADRESPONSE']._serialized_end=156
-  _globals['_GETREQUEST']._serialized_start=158
-  _globals['_GETREQUEST']._serialized_end=206
-  _globals['_GETRESPONSE']._serialized_start=208
-  _globals['_GETRESPONSE']._serialized_end=268
-  _globals['_CLIENTDATANODE']._serialized_start=271
-  _globals['_CLIENTDATANODE']._serialized_end=432
+  _globals['_UPLOADREQUEST']._serialized_end=122
+  _globals['_UPLOADRESPONSE']._serialized_start=124
+  _globals['_UPLOADRESPONSE']._serialized_end=173
+  _globals['_GETREQUEST']._serialized_start=175
+  _globals['_GETREQUEST']._serialized_end=223
+  _globals['_GETRESPONSE']._serialized_start=225
+  _globals['_GETRESPONSE']._serialized_end=285
+  _globals['_CLIENTDATANODE']._serialized_start=288
+  _globals['_CLIENTDATANODE']._serialized_end=449
 # @@protoc_insertion_point(module_scope)
