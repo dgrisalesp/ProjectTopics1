@@ -165,12 +165,7 @@ def secondMenu():
                 print(response.ip1)
         elif option=="4":
             filename=input("Enter the name of the file: ")
-            node_id=input("Enter the id of the node: ")
-            response=getFile(user, filename, node_id)
-            if response.value==1:
-                print('File downloaded successfully')
-            else:
-                print(response.response)
+            response=getFileServer(user, filename)
         else:
             print('Not a valid option')
 if __name__ == '__main__':
