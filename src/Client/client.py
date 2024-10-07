@@ -82,21 +82,33 @@ def uploadFile(username,filename, node_id):
         response=clientDataNode_pb2.uploadResponse(value=0, response="Node not found")
     finally:
         return response
+def getFileServer(username, filename):
+    getFile_request=clientServer_pb2.getFileRequest(filename=f'{username}/{filename}')
+    getFile_response=stub.getFile(getFile_request)
+    if getFile_response.value==0:
+        return getFile_response.response
+    for id in getFile_response.ips:
+        response=getFile(username, filename, id)
+        if response.value==1:
+            return response.response
+    return "We couldn't find the file"
 def getFile(username, filename, node_id):
     try:
         with grpc.insecure_channel(f'{node_id}:50052') as channelt:
             stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
-            request=clientDataNode_pb2.getRequest(username=username, filename=filename)
+            request=clientDataNode_pb2.getRequest(filename=f'{username}/{filename}')
             response=stubt.getFile(request)
-            path=f'./data/{filename}'
-            with open(path, 'wb') as f:
-                f.write(response.data)
+            if response.value==1:
+                path=f'./data/{filename}'
+                with open(path, 'wb') as f:
+                    f.write(response.data)
+            else:
+                response=clientDataNode_pb2.getResponse(value=0, response="Node not found")
     except:
         print('Node not found')
         response=clientDataNode_pb2.getResponse(value=0, response="Node not found")
     finally:
         return response
-    
 ##Important Directions
 serverDirection="54.198.253.100"
 ##

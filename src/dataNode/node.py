@@ -59,10 +59,11 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
             return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded") 
         
     def getFile(self, request, context):
-        username=request.username
         filename=request.filename
+        home_directory = os.path.expanduser('~')
+        directory = os.path.join(home_directory, filename)
         try:
-            with open(f'./{username}/{filename}','rb') as f:
+            with open(directory,'rb') as f:
                 data=f.read()
             return clientDataNode_pb2.getResponse(value=1, response="File downloaded succesfully", data=data)
         except:

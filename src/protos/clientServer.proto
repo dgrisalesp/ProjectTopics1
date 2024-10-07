@@ -9,6 +9,7 @@ service ClientServer{
     rpc stayingAlive(stayRequest) returns (stayResponse); //user & password required
     rpc putFile(putFileRequest) returns (putFileResponse);
     rpc receivedFile(receivedFileRequest) returns (receivedFileResponse);
+    rpc getFile(getFileRequest) returns (getFileResponse);
 }
 
 message registerRequest{
@@ -79,3 +80,14 @@ message receivedFileResponse{
 
 
 }
+
+message getFileRequest{
+    string filename=1;
+
+}
+message getFileResponse{
+    int32 value=1;
+    repeated string ips=2;
+    string response=3;
+}
+

@@ -131,7 +131,15 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
                 return clientServer_pb2.receivedFileResponse(value=1,id="")
         except:
             return clientServer_pb2.receivedFileResponse(value=0,id="")
-
+    def getFile(self, request, context):
+        filename=request.filename
+        try:
+            cursor.execute("select node_ip from files where filename like '%s'",(f'%{filename}',))
+            ips=cursor.fetchall()
+            response=clientServer_pb2.getFileResponse(value=1,ips=list(ips))
+            return response
+        except:
+            return clientServer_pb2.getFileResponse(value=0,ips=[])
 #Define server
 def serve():
     ##Se inicia el server y se abre el puerto 50051

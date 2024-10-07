@@ -23,7 +23,6 @@ message uploadResponse{
 }
 
 message getRequest{
-    string username=1;
     string filename=2;
 
 }
