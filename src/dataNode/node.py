@@ -19,7 +19,8 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
         print("llegó")
         username=request.username
         filename=request.filename
-        directory=f'./{username}'
+        home_directory = os.path.expanduser('~')
+        directory = os.path.join(home_directory, username)
         if not os.path.exists(directory):
             os.makedirs(directory)
         try:

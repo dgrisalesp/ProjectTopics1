@@ -60,7 +60,7 @@ def putFile(username, filename, size):
 def uploadFile(username,filename, node_id):
     try:
         print('Intentando...')
-        with grpc.insecure_channel(f'localhost:50052') as channelt:
+        with grpc.insecure_channel(f'{node_id}:50052') as channelt:
             stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
             print('Conectado')
             path = f'./data/{filename}'
@@ -84,7 +84,7 @@ def uploadFile(username,filename, node_id):
         return response
 def getFile(username, filename, node_id):
     try:
-        with grpc.insecure_channel(f'{node_id}:50051') as channelt:
+        with grpc.insecure_channel(f'{node_id}:50052') as channelt:
             stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
             request=clientDataNode_pb2.getRequest(username=username, filename=filename)
             response=stubt.getFile(request)
@@ -98,7 +98,7 @@ def getFile(username, filename, node_id):
         return response
     
 ##Important Directions
-serverDirection="localhost"
+serverDirection="54.90.212.9"
 ##
 
 def firstMenu():
