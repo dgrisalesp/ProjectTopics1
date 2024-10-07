@@ -75,7 +75,7 @@ def uploadFile(username,filename, node_id):
             else:
                 print(f'File not found: {path}')
             print('Antes del request')
-            request=clientDataNode_pb2.uploadRequest(username=username, filename=filename, data=file_data, node_ip=node_id)
+            request=clientDataNode_pb2.uploadRequest(username=username, filename=filename, data=file_data, node_id=node_id)
             response=stubt.uploadFile(request)
     except:
         print('Node not found')
