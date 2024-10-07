@@ -86,11 +86,13 @@ def getFileServer(username, filename):
     getFile_request=clientServer_pb2.getFileRequest(filename=f'{username}/{filename}')
     getFile_response=stub.getFile(getFile_request)
     if getFile_response.value==0:
+        print("We're sorry")
         return getFile_response.response
     for id in getFile_response.ips:
         response=getFile(username, filename, id)
         if response.value==1:
             return response.response
+    print('We couldn´t find the file')
     return "We couldn't find the file"
 def getFile(username, filename, node_id):
     try:
