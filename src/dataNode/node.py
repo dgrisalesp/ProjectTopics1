@@ -14,7 +14,7 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 
 
-class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
+class FileTransfer(clientDataNode_pb2_grpc.clientDataNodeServicer):
     def uploadFile(self, request, context):
         username=request.username
         filename=request.filename
@@ -36,7 +36,7 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
         
 def serve():
     server=grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    clientDataNode_pb2_grpc.add_ClientDataNodeServicer_to_server(FileTransfer(), server)
+    clientDataNode_pb2_grpc.add_clientDataNodeServicer_to_server(FileTransfer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
