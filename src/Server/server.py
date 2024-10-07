@@ -115,6 +115,11 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             cursor.execute("update nodes set last_used=%s where ip_address=%s",(datetime.now(),node_id))
             mydb.commit()
             if type==1:
+                try:
+                    cursor.execute("delete from files where filename = %s",(filename, ))
+                    
+                except:
+                    pass
                 cursor.execute("insert into files (node_ip, filename, type) values (%s, %s, %s)",(node_id,filename,type, ))
                 mydb.commit()
                 cursor.execute("select ip_address  from nodes  where status=TRUE and ip_address!=%s order by last_used asc limit 1", (node_id, ))
