@@ -112,7 +112,7 @@ def getFile(username, filename, node_id):
     finally:
         return response
 ##Important Directions
-serverDirection="54.198.253.100"
+serverDirection="3.85.106.71"
 ##
 
 def firstMenu():

@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="34.235.171.3"
-mongoDirection="3.86.211.136"
+mySQLDirection="18.234.27.120"
+mongoDirection="54.172.65.163"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
