@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class clientDataNodeStub(object):
+class ClientDataNodeStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -35,18 +35,18 @@ class clientDataNodeStub(object):
             channel: A grpc.Channel.
         """
         self.uploadFile = channel.unary_unary(
-                '/clientDataNode.clientDataNode/uploadFile',
+                '/clientDataNode.ClientDataNode/uploadFile',
                 request_serializer=clientDataNode__pb2.uploadRequest.SerializeToString,
                 response_deserializer=clientDataNode__pb2.uploadResponse.FromString,
                 _registered_method=True)
         self.getFile = channel.unary_unary(
-                '/clientDataNode.clientDataNode/getFile',
+                '/clientDataNode.ClientDataNode/getFile',
                 request_serializer=clientDataNode__pb2.getRequest.SerializeToString,
                 response_deserializer=clientDataNode__pb2.getResponse.FromString,
                 _registered_method=True)
 
 
-class clientDataNodeServicer(object):
+class ClientDataNodeServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def uploadFile(self, request, context):
@@ -62,7 +62,7 @@ class clientDataNodeServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_clientDataNodeServicer_to_server(servicer, server):
+def add_ClientDataNodeServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'uploadFile': grpc.unary_unary_rpc_method_handler(
                     servicer.uploadFile,
@@ -76,13 +76,13 @@ def add_clientDataNodeServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'clientDataNode.clientDataNode', rpc_method_handlers)
+            'clientDataNode.ClientDataNode', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('clientDataNode.clientDataNode', rpc_method_handlers)
+    server.add_registered_method_handlers('clientDataNode.ClientDataNode', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class clientDataNode(object):
+class ClientDataNode(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -99,7 +99,7 @@ class clientDataNode(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/clientDataNode.clientDataNode/uploadFile',
+            '/clientDataNode.ClientDataNode/uploadFile',
             clientDataNode__pb2.uploadRequest.SerializeToString,
             clientDataNode__pb2.uploadResponse.FromString,
             options,
@@ -126,7 +126,7 @@ class clientDataNode(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/clientDataNode.clientDataNode/getFile',
+            '/clientDataNode.ClientDataNode/getFile',
             clientDataNode__pb2.getRequest.SerializeToString,
             clientDataNode__pb2.getResponse.FromString,
             options,

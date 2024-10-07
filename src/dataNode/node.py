@@ -14,15 +14,21 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 
 
-class FileTransfer(clientDataNode_pb2_grpc.clientDataNodeServicer):
+class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
     def uploadFile(self, request, context):
+        print("llegó")
         username=request.username
         filename=request.filename
+        directory=f'./{username}'
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         try:
-            with open(f'./{username}/{filename}','wb' ) as f:
+            with open(f'{directory}/{filename}','wb' ) as f:
+                print('Abrió')
                 f.write(request.data)
             return clientDataNode_pb2.uploadResponse(value=1, response="File uploaded succesfully")
         except:
+            print('Falló')
             return clientDataNode_pb2.uploadResponse(value=0, response="File not uploaded") 
     def getFile(self, request, context):
         username=request.username
@@ -36,8 +42,8 @@ class FileTransfer(clientDataNode_pb2_grpc.clientDataNodeServicer):
         
 def serve():
     server=grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    clientDataNode_pb2_grpc.add_clientDataNodeServicer_to_server(FileTransfer(), server)
-    server.add_insecure_port('[::]:50051')
+    clientDataNode_pb2_grpc.add_ClientDataNodeServicer_to_server(FileTransfer(), server)
+    server.add_insecure_port('[::]:50052')
     server.start()
     server.wait_for_termination()
 if __name__ == '__main__':

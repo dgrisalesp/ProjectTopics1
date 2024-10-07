@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="54.89.35.47"
-mongoDirection="34.227.158.151"
+mySQLDirection="98.83.142.38"
+mongoDirection="34.238.116.120"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
@@ -106,7 +106,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
             return response
         except:
-            return clientServer_pb2.putFileResponse(value=0, ip1="", ip2="")
+            return clientServer_pb2.putFileResponse(value=0, ip1="")
 
 #Define server
 def serve():

@@ -2,7 +2,7 @@ syntax="proto3";
 package clientDataNode;
 
 
-service clientDataNode{
+service ClientDataNode{
     rpc uploadFile(uploadRequest) returns (uploadResponse);
     rpc getFile(getRequest) returns (getResponse);
 }

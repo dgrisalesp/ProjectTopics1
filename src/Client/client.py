@@ -54,15 +54,27 @@ def unregister(user, password):
 def putFile(username, filename, size):
     putFile_request=clientServer_pb2.putFileRequest(username=username, filename=filename, size=size)
     putFile_response= stub.putFile(putFile_request)
+    uploadFile(username, filename, putFile_response.ip1)
     #print(putFile_response)
     return putFile_response
 def uploadFile(username,filename, node_id):
     try:
-        with grpc.insecure_channel(f'{node_id}:50051') as channelt:
+        print('Intentando...')
+        with grpc.insecure_channel(f'localhost:50052') as channelt:
             stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
-            path=f'./data/{filename}'
-            with open(path, 'rb') as f:
-                file_data=f.read()
+            print('Conectado')
+            path = f'./data/{filename}'
+# Check if the file exists
+            if os.path.isfile(path):
+                try:
+                    with open(path, 'rb') as f:
+                        file_data = f.read()
+                    print('File read successfully')
+                except Exception as e:
+                    print(f'An error occurred while reading the file: {e}')
+            else:
+                print(f'File not found: {path}')
+            print('Antes del request')
             request=clientDataNode_pb2.uploadRequest(username=username, filename=filename, data=file_data)
             response=stubt.uploadFile(request)
     except:
