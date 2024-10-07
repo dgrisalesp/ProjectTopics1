@@ -74,9 +74,9 @@ class FileTransfer(clientDataNode_pb2_grpc.ClientDataNodeServicer):
             with open(filename, 'wb') as f:
                 f.write(request.data)
                 receivedFile(filename, node_id, 2)
-            return clientDataNode_pb2.sendReplica(value=1, response="File uploaded succesfully")
+            return clientDataNode_pb2.sendReplicaResponse(value=1, response="File uploaded succesfully")
         except:
-            return clientDataNode_pb2.sendReplica(value=0, response="Something went wrong")
+            return clientDataNode_pb2.sendReplicaResponse(value=0, response="Something went wrong")
             
             
 def serve():
