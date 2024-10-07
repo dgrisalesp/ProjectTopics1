@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63lientServer.proto\x12\x0c\x63lientServer\"1\n\x0fregisterRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"3\n\x10registerResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"3\n\x11unregisterRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"5\n\x12unregisterResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\".\n\x0cloginRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"0\n\rloginResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"/\n\rlogoutRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"1\n\x0elogoutResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"+\n\x0bstayRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\"/\n\x0cstayResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t2\xf8\x02\n\x0c\x43lientServer\x12I\n\x08register\x12\x1d.clientServer.registerRequest\x1a\x1e.clientServer.registerResponse\x12O\n\nunregister\x12\x1f.clientServer.unregisterRequest\x1a .clientServer.unregisterResponse\x12@\n\x05login\x12\x1a.clientServer.loginRequest\x1a\x1b.clientServer.loginResponse\x12\x43\n\x06logout\x12\x1b.clientServer.logoutRequest\x1a\x1c.clientServer.logoutResponse\x12\x45\n\x0cstayingAlive\x12\x19.clientServer.stayRequest\x1a\x1a.clientServer.stayResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63lientServer.proto\x12\x0c\x63lientServer\"1\n\x0fregisterRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"3\n\x10registerResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"3\n\x11unregisterRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"5\n\x12unregisterResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\".\n\x0cloginRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"0\n\rloginResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"/\n\rlogoutRequest\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"1\n\x0elogoutResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"+\n\x0bstayRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\"/\n\x0cstayResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x10\n\x08response\x18\x02 \x01(\t\"B\n\x0eputFileRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x05\"-\n\x0fputFileResponse\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x0b\n\x03ip1\x18\x02 \x01(\t2\xc0\x03\n\x0c\x43lientServer\x12I\n\x08register\x12\x1d.clientServer.registerRequest\x1a\x1e.clientServer.registerResponse\x12O\n\nunregister\x12\x1f.clientServer.unregisterRequest\x1a .clientServer.unregisterResponse\x12@\n\x05login\x12\x1a.clientServer.loginRequest\x1a\x1b.clientServer.loginResponse\x12\x43\n\x06logout\x12\x1b.clientServer.logoutRequest\x1a\x1c.clientServer.logoutResponse\x12\x45\n\x0cstayingAlive\x12\x19.clientServer.stayRequest\x1a\x1a.clientServer.stayResponse\x12\x46\n\x07putFile\x12\x1c.clientServer.putFileRequest\x1a\x1d.clientServer.putFileResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -51,6 +51,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_STAYREQUEST']._serialized_end=489
   _globals['_STAYRESPONSE']._serialized_start=491
   _globals['_STAYRESPONSE']._serialized_end=538
-  _globals['_CLIENTSERVER']._serialized_start=541
-  _globals['_CLIENTSERVER']._serialized_end=917
+  _globals['_PUTFILEREQUEST']._serialized_start=540
+  _globals['_PUTFILEREQUEST']._serialized_end=606
+  _globals['_PUTFILERESPONSE']._serialized_start=608
+  _globals['_PUTFILERESPONSE']._serialized_end=653
+  _globals['_CLIENTSERVER']._serialized_start=656
+  _globals['_CLIENTSERVER']._serialized_end=1104
 # @@protoc_insertion_point(module_scope)

@@ -7,6 +7,7 @@ service ClientServer{
     rpc login(loginRequest) returns (loginResponse);
     rpc logout(logoutRequest) returns (logoutResponse);
     rpc stayingAlive(stayRequest) returns (stayResponse); //user & password required
+    rpc putFile(putFileRequest) returns (putFileResponse);
 }
 
 message registerRequest{
@@ -52,4 +53,15 @@ message stayRequest{
 message stayResponse{
     int32 value=1;
     string response=2;
+}
+
+message putFileRequest{
+    string username=1;
+    string filename=2;
+    int32 size=3;
+
+}
+message putFileResponse{
+    int32 value=1;
+    string ip1=2;
 }

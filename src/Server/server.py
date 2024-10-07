@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="3.93.22.12"
-mongoDirection="52.87.226.122"
+mySQLDirection="54.89.35.47"
+mongoDirection="34.227.158.151"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
@@ -52,8 +52,9 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
                 results=cursor.fetchall()
             
                 if results:
-#                    print('before insert')
+                    #print('before insert')
                     id=users.update_one({'username':str(user)}, {'$set':{'seen':datetime.utcnow()}},upsert=True).upserted_id
+                    #print(id)
                     if id==None:
                         id=users.find_one({'username':str(user)})['_id']
                     login_response=clientServer_pb2.loginResponse(value=1,response=str(id))
@@ -94,6 +95,18 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         except:
             ##Si no se logra eliminar, se hace rollback y se retorna un mensaje de error
             return clientServer_pb2.unregisterResponse(value=0,response="User not unregistered")
+    def putFile(self, request, context):
+        ##Obtener el username, filename y size de la request
+        username=request.username
+        filename=request.filename
+        size=request.size
+        try:
+            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 1")
+            ips=cursor.fetchall()
+            response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
+            return response
+        except:
+            return clientServer_pb2.putFileResponse(value=0, ip1="", ip2="")
 
 #Define server
 def serve():

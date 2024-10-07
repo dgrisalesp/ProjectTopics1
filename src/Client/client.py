@@ -5,7 +5,7 @@ import os
 
 protos_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'protos'))
 sys.path.append(protos_path)
-import clientServer_pb2_grpc, clientServer_pb2
+import clientServer_pb2_grpc, clientServer_pb2,clientDataNode_pb2_grpc, clientDataNode_pb2
 import grpc
 import time
 import threading
@@ -51,8 +51,42 @@ def unregister(user, password):
     unregister_request=clientServer_pb2.unregisterRequest( user=user, password=password)
     unregister_response= stub.unregister(unregister_request)
     return unregister_response
+def putFile(username, filename, size):
+    putFile_request=clientServer_pb2.putFileRequest(username=username, filename=filename, size=size)
+    putFile_response= stub.putFile(putFile_request)
+    #print(putFile_response)
+    return putFile_response
+def uploadFile(username,filename, node_id):
+    try:
+        with grpc.insecure_channel(f'{node_id}:50051') as channelt:
+            stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
+            path=f'./data/{filename}'
+            with open(path, 'rb') as f:
+                file_data=f.read()
+            request=clientDataNode_pb2.uploadRequest(username=username, filename=filename, data=file_data)
+            response=stubt.uploadFile(request)
+    except:
+        print('Node not found')
+        response=clientDataNode_pb2.uploadResponse(value=0, response="Node not found")
+    finally:
+        return response
+def getFile(username, filename, node_id):
+    try:
+        with grpc.insecure_channel(f'{node_id}:50051') as channelt:
+            stubt = clientDataNode_pb2_grpc.ClientDataNodeStub(channelt)
+            request=clientDataNode_pb2.getRequest(username=username, filename=filename)
+            response=stubt.getFile(request)
+            path=f'./data/{filename}'
+            with open(path, 'wb') as f:
+                f.write(response.data)
+    except:
+        print('Node not found')
+        response=clientDataNode_pb2.getResponse(value=0, response="Node not found")
+    finally:
+        return response
+    
 ##Important Directions
-serverDirection="54.208.98.36"
+serverDirection="localhost"
 ##
 
 def firstMenu():
@@ -99,6 +133,20 @@ def secondMenu():
             else:
                 print(response.response)
             return 2
+        elif option=="3":
+            filename=input("Enter the name of the file: ")
+            size=int(input("Enter the size of the file: "))
+            response=putFile(user, filename, size)
+            if response.value==1:
+                print(response.ip1)
+        elif option=="4":
+            filename=input("Enter the name of the file: ")
+            node_id=input("Enter the id of the node: ")
+            response=getFile(user, filename, node_id)
+            if response.value==1:
+                print('File downloaded successfully')
+            else:
+                print(response.response)
         else:
             print('Not a valid option')
 if __name__ == '__main__':

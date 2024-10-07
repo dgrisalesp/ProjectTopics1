@@ -1,0 +1,29 @@
+syntax="proto3";
+package clientDataNode;
+
+
+service clientDataNode{
+    rpc uploadFile(uploadRequest) returns (uploadResponse);
+    rpc getFile(getRequest) returns (getResponse);
+}
+
+message uploadRequest{
+    string username=1;
+    string filename=2;
+    bytes data=3;
+}
+message uploadResponse{
+    int32 value=1;
+    string response=2;
+}
+
+message getRequest{
+    string username=1;
+    string filename=2;
+
+}
+message getResponse{
+    int32 value=1;
+    bytes data=2;
+    string response=3;
+}
