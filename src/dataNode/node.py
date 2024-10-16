@@ -16,7 +16,7 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 
 
-serverDirection="3.85.106.71"
+serverDirection="18.209.103.208"
 def receivedFile(filename, node_id, type):
     try:
         with grpc.insecure_channel(f'{serverDirection}:50051') as channel:

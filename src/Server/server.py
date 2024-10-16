@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="18.234.27.120"
-mongoDirection="54.172.65.163"
+mySQLDirection="3.90.253.39"
+mongoDirection="34.205.72.23"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
@@ -102,15 +102,9 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         filename=request.filename
         size=request.size
         try:
-            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 2")
+            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 1")
             ips=cursor.fetchall()
-            try:
-                response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
-                
-            except:
-                cursor.execute("update nodes set status=FALSE where ip_address!=%s",(ips[0][0],))
-                mydb.commit()
-                response=clientServer_pb2.putFileResponse(value=1, ip1=ips[1][0])
+            response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
             return response
         except:
             return clientServer_pb2.putFileResponse(value=0, ip1="")

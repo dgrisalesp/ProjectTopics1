@@ -112,7 +112,7 @@ def getFile(username, filename, node_id):
     finally:
         return response
 ##Important Directions
-serverDirection="3.85.106.71"
+serverDirection="18.209.103.208"
 ##
 
 def firstMenu():
@@ -161,8 +161,7 @@ def secondMenu():
             return 2
         elif option=="3":
             filename=input("Enter the name of the file: ")
-            size=int(input("Enter the size of the file: "))
-            response=putFile(user, filename, size)
+            response=putFile(user, filename,0)
             if response.value==1:
                 print(response.ip1)
         elif option=="4":
