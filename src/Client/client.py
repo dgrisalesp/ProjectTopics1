@@ -54,7 +54,10 @@ def unregister(user, password):
 def putFile(username, filename, size):
     putFile_request=clientServer_pb2.putFileRequest(username=username, filename=filename, size=size)
     putFile_response= stub.putFile(putFile_request)
-    uploadFile(username, filename, putFile_response.ip1)
+    try:
+        uploadFile(username, filename, putFile_response.ip1[0])
+    except:
+        uploadFile(username, filename, putFile_response.ip1[1])
     #print(putFile_response)
     return putFile_response
 def uploadFile(username,filename, node_id):
