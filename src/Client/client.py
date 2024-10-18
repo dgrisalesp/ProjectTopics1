@@ -89,10 +89,13 @@ def getFileServer(username, filename):
         print("We're sorry")
         return getFile_response.response
     for id in getFile_response.ips:
-        response=getFile(username, filename, id)
-        if response.value==1:
-            return response.response
-    print('We couldn´t find the file')
+        try:
+            response=getFile(username, filename, id)
+            if response.value==1:
+                return response.response
+        except:
+            continue
+    print("We couldn't find the file")
     return "We couldn't find the file"
 def getFile(username, filename, node_id):
     try:
@@ -112,7 +115,7 @@ def getFile(username, filename, node_id):
     finally:
         return response
 ##Important Directions
-serverDirection="18.234.57.0"
+serverDirection="3.82.66.240"
 ##
 
 def firstMenu():

@@ -19,8 +19,8 @@ from datetime import datetime, timedelta
 
 
 ##Important Directions
-mySQLDirection="54.162.139.69"
-mongoDirection="35.170.244.133"
+mySQLDirection="3.94.7.197"
+mongoDirection="44.202.137.47"
 
 class Server(clientServer_pb2_grpc.ClientServerServicer):
     def register(self, request, context):
@@ -137,6 +137,8 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         try:
             cursor.execute("select node_ip, replica from files where filename like %s",(f'%{filename}%',))
             ips=cursor.fetchall()
+            logging.info(ips)
+            logging.info(ips[0])
             response=clientServer_pb2.getFileResponse(value=1,ips=list(ips[0]))
             print(response)
             return response
