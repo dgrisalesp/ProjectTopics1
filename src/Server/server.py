@@ -139,7 +139,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             ips=cursor.fetchall()
             logging.info(ips)
             logging.info(ips[0])
-            response=clientServer_pb2.getFileResponse(value=1,ips=list(ips[0]))
+            response=clientServer_pb2.getFileResponse(value=1,ips=ips[0])
             print(response)
             return response
         except:

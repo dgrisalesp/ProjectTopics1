@@ -85,6 +85,7 @@ def uploadFile(username,filename, node_id):
 def getFileServer(username, filename):
     getFile_request=clientServer_pb2.getFileRequest(filename=f'{username}/{filename}')
     getFile_response=stub.getFile(getFile_request)
+    print(getFile_response.ips)
     if getFile_response.value==0:
         print("We're sorry")
         return getFile_response.response
