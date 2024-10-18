@@ -139,6 +139,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             ips=cursor.fetchall()
             logging.info(ips)
             logging.info(ips[0])
+            ips=ips[0]
             ips = tuple("" if ip is None else ip for ip in ips)
             response=clientServer_pb2.getFileResponse(value=1,ips=ips[0])
             print(response)
