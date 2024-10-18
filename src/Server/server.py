@@ -141,7 +141,7 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
             logging.info(ips[0])
             ips=ips[0]
             ips = tuple("" if ip is None else ip for ip in ips)
-            response=clientServer_pb2.getFileResponse(value=1,ips=ips[0])
+            response=clientServer_pb2.getFileResponse(value=1,ips=ips)
             print(response)
             return response
         except:
