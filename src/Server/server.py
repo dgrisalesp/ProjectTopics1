@@ -102,9 +102,10 @@ class Server(clientServer_pb2_grpc.ClientServerServicer):
         filename=request.filename
         size=request.size
         try:
-            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 1")
+            cursor.execute("select ip_address  from nodes  where status=TRUE order by last_used asc limit 2")
             ips=cursor.fetchall()
-            response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0][0])
+            logging.info(ips[0])
+            response=clientServer_pb2.putFileResponse(value=1, ip1=ips[0])
             return response
         except:
             return clientServer_pb2.putFileResponse(value=0, ip1="")
